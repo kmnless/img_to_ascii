@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "/zV8SnJbWx4ysEv8OxfqNYWxxhIQ56N8uZynMfUB59J5ZHb860OlUcq1JGfrBZ9HgwBsGuqq2kCbLOGv7SsM2A==",
+  "success": true,
+  "projectFilePath": "C:\\IT\\rep\\img_to_ascii-master\\img_to_ascii\\img_to_ascii.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\ARMENIA\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
+    "C:\\Users\\ARMENIA\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
