@@ -8,8 +8,6 @@ namespace img_to_ascii
 
         public RENDER_MODE renderMode = RENDER_MODE.MONOCHROME;
 
-        public bool Exit = false;
-
         public bool isAsciiTableLong = false;
 
         public int imageWidth = 550; 
@@ -82,9 +80,9 @@ namespace img_to_ascii
                             Console.Clear();
                             break;
                         case 3:
-                            isWorking = false;
-                            Exit = true;
+                            isWorking = false; 
                             Console.Clear();
+                            Environment.Exit(0);
                             break;
                         default:
                             break;
@@ -234,6 +232,7 @@ namespace img_to_ascii
                         case 4:
                             Console.Clear();
                             isWorking = false;
+
                             break;
                         default:
                             break;

@@ -22,6 +22,7 @@ while (!success)
     }
     catch
     {
+        
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("Wrong path!");
         Console.ForegroundColor = ConsoleColor.Gray;
