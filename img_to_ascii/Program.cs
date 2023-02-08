@@ -2,31 +2,32 @@
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 
-bool withColor = true;
+bool withColor = false;
 
-Image image = Image.FromFile("D:\\testimages\\hitler2.png");
+Image image = Image.FromFile("E:\\testimages\\serj-tankian.png");
 Bitmap imageBitmap = new Bitmap(image);
-int cellSize = 3;
-
+int cellSize = 12;
 // Resize image for cells
-while (image.Width % cellSize != 0 && image.Height % cellSize != 0)
-{
-    cellSize++;
-    if (cellSize * (image.Height / cellSize) == 0 || cellSize * (image.Width / cellSize) == 0)
-    {
-        //Console.WriteLine("Not resized for cell aspect ratio");
-        break;
-    }
-    if (cellSize >= 30)
-    {
-        imageBitmap = ResizeImage(image, cellSize * (image.Width / cellSize), cellSize * (image.Height / cellSize));
-        //Console.WriteLine("Resized");
-        break;
-    }
-}
 
+//while (image.Width % cellSize != 0 && image.Height % cellSize != 0)
+//{
+//    cellSize++;
+//    if (cellSize * (image.Height / cellSize) == 0 || cellSize * (image.Width / cellSize) == 0)
+//    {
+//        //Console.WriteLine("Not resized for cell aspect ratio");
+//        break;
+//    }
+//    if (cellSize >= 30)
+//    {
+//        imageBitmap = ResizeImage(image, cellSize * (image.Width / cellSize), cellSize * (image.Height / cellSize));
+//        //Console.WriteLine("Resized");
+//        break;
+//    }
+//}
+double transmotionKoef = 1020.0 / Convert.ToDouble(image.Width);
+imageBitmap = ResizeImage(image, 1020, Convert.ToInt32(imageBitmap.Height*transmotionKoef));
 // make image wider
-imageBitmap = ResizeImage(image, cellSize * (image.Width * 175 / 100 / cellSize) * 15/10, cellSize * (image.Height / cellSize)*15/10);
+imageBitmap = ResizeImage(image, cellSize * (imageBitmap.Width * 175 / 100 / cellSize) * 15/10, cellSize * (imageBitmap.Height / cellSize)*15/10);
 image = imageBitmap as Image;
 
 // symbol counters
@@ -34,8 +35,8 @@ int bricksX = image.Width / cellSize;
 int bricksY = image.Height / cellSize;
 
 char[,] charArr = new char[bricksX, bricksY];
-string asciiTable = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
-//string asciiTable = "@&#0Oo*^.  ";
+//string asciiTable = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,\"^`'. ";
+string asciiTable = "@&#0Oo*^.  ";
 
 asciiTable = Reverse(asciiTable);
 
