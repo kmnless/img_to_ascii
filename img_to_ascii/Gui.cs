@@ -6,9 +6,13 @@ namespace img_to_ascii
     {
         public string? path;
 
-        public bool withColor = false;
+        public RENDER_MODE renderMode = RENDER_MODE.MONOCHROME;
 
         public bool Exit = false;
+
+        public bool isAsciiTableLong = false;
+
+        public int imageWidth = 550; 
 
         public void Start()
         {
@@ -110,14 +114,13 @@ namespace img_to_ascii
                     Console.CursorVisible = false;
                 }    
             }
-            
         }
 
         private void ShowSettings()
         {
             bool isWorking = true;
             byte choice = 1;
-            byte keyCount = 2;
+            byte keyCount = 4;
             ConsoleKey key;
 
             while (isWorking)
@@ -125,24 +128,55 @@ namespace img_to_ascii
                 Console.WriteLine();
                 if(choice == 1)
                     SelectButton();
-                Console.Write("Render with color:");
+                Console.Write("Render type:");
                 UnselectButton();                
-                if (withColor)
+                if (renderMode == RENDER_MODE.COLORED)
                 {
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("  Yes");
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.WriteLine("  Colored");
                 }
-                else
+                else if(renderMode == RENDER_MODE.MONOCHROME)
                 {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("  No");
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.WriteLine("  Monochrome");
+                }
+                else if(renderMode == RENDER_MODE.BLACK_WHITE)
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("  Black and white");
                 }
                 UnselectButton();
 
                 if (choice == 2)
                     SelectButton();
-                Console.Write("Back");
+                Console.Write("ASCII table select:");
                 UnselectButton();
+                if (isAsciiTableLong)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("  Long");
+                }
+                else if (!isAsciiTableLong)
+                {
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("  Short");
+                }
+                UnselectButton();
+
+                if (choice == 3)
+                    SelectButton();
+                Console.Write("Image width(length is proportional)");
+                UnselectButton();
+                if(imageWidth<=400 || imageWidth >= 750)
+                    Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"  {imageWidth}");
+                UnselectButton();
+
+                if (choice == 4)
+                    SelectButton();
+                Console.Write("Exit");
+                UnselectButton();
+
 
                 key = Console.ReadKey().Key;
 
@@ -174,12 +208,30 @@ namespace img_to_ascii
                     {
                         case 1:
                             Console.Clear();
-                            if (withColor)
-                                withColor = false;
+                            if ((int)renderMode < 2)
+                                renderMode++;
                             else
-                                withColor = true;
+                                renderMode = RENDER_MODE.BLACK_WHITE;
                             break;
                         case 2:
+                            Console.Clear();
+                            if(isAsciiTableLong)
+                                isAsciiTableLong = false;
+                            else
+                                isAsciiTableLong = true;
+                            break;
+                        case 3:
+                            key = ConsoleKey.A;
+                            while(key != ConsoleKey.Enter)
+                            {
+                                key = Console.ReadKey().Key;
+                                if(key == ConsoleKey.UpArrow)
+                                    imageWidth += 5;
+                                else if(key == ConsoleKey.DownArrow)
+                                    imageWidth -= 5;
+                            }
+                            break;
+                        case 4:
                             Console.Clear();
                             isWorking = false;
                             break;
@@ -190,10 +242,6 @@ namespace img_to_ascii
                 Console.Clear();
             }
         }
-
-
-
-
 
         private void SelectButton()
         {
