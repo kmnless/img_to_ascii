@@ -1,10 +1,38 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using img_to_ascii;
+
+Console.Title = "Image to ASCII";
+
+Gui gui = new Gui();
 
 bool withColor = false;
+bool success = false;
 
-Image image = Image.FromFile("E:\\testimages\\serj-tankian.png");
+Image? image = null;
+
+while (!success)
+{
+    gui.Start();
+    withColor = gui.withColor;
+    try
+    {
+        image = Image.FromFile(gui.path);
+        success= true;
+    }
+    catch
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Wrong path!");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        success = false;
+    }
+}
+Console.SetWindowSize(Console.LargestWindowWidth-25, Console.LargestWindowHeight);
+
 Bitmap imageBitmap = new Bitmap(image);
 int cellSize = 12;
 // Resize image for cells
